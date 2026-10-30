@@ -2619,11 +2619,12 @@ var DOT_STRAYS = [['...', DOTS_MSG], ['…', DOTS_MSG], ['⋯', DOTS_MSG]];
 
 /* ---------------- the sections ---------------- */
 var SECTIONS_P = [
-  { id: 'sec-first', title: 'A First-Order Series', lede: 'This goes with BDH Appendix B, pages 742 to 745, and the table of coefficients of `t^n` in Part 1 of the Reading Guide.' },
-  { id: 'sec-second', title: 'Two Free Coefficients', lede: 'This goes with BDH Appendix B, pages 745 to 748. Paul’s [Series Solutions](' + T_SER[0] + ') page solves `y″ + y = 0` the same way, in `x`.' },
-  { id: 'sec-var', title: 'Variable Coefficients', lede: 'These go with BDH Appendix B, pages 745 to 748, and the page Matching Coefficients, One Power at a Time.' },
-  { id: 'sec-check', title: 'Checking a Heat Solution', lede: 'This goes with Lebl Section 4.6 and the four checks in Part 2 of the Reading Guide.' },
-  { id: 'sec-modes', title: 'Boundary Values and the Sine Modes', lede: 'This goes with Lebl Sections 4.1 and 4.6, and the page Separated Solutions and the Sine Modes.' },
+  { id: 'sec-first', title: 'A First-Order Series', lede: 'This goes with BDH Appendix B, pages 742 to 745, and the table of coefficients of `t^n` in Power Series in One Step, in the Unit 12 Reading Guide, Part 1.' },
+  { id: 'sec-second', title: 'Two Free Coefficients', lede: 'This goes with the recurrence for `y″ + y = 0` in Power Series in One Step, in the Unit 12 Reading Guide, Part 1. Paul’s [Series Solutions](' + T_SER[0] + ') page solves `y″ + y = 0` the same way, in `x`.' },
+  { id: 'sec-var', title: 'Variable Coefficients', lede: 'This goes with BDH Appendix B, page 744, Power Series in One Step in the Unit 12 Reading Guide, Part 1, and Unit 12 Worked Example 12.1.' },
+  { id: 'sec-check', title: 'Checking a Heat Solution', lede: 'This goes with Lebl Section 4.6 and the four checks in the note Separation and the Examples, in the Unit 12 Reading Guide, Part 2.' },
+  { id: 'sec-modes', title: 'Boundary Values and the Sine Modes', lede: 'This goes with Lebl Sections 4.1 and 4.6, and the section Separated Solutions and the Sine Modes in the Unit 12 Reading Guide, Part 2.' },
+  { id: 'sec-fine', title: 'Why Heat Erases Fine Detail First', lede: 'This goes with Why Heat Erases Fine Detail First, at the end of Separated Solutions and the Sine Modes in the Unit 12 Reading Guide, Part 2, and with Unit 12 Worked Example 12.4.' },
   { id: 'sec-sum', title: 'Solving With a Sum of Sines', lede: 'This goes with Lebl’s [Example 4.6.2](' + T_SUM[0] + ') in Section 4.6.' },
   { id: 'sec-rod', title: 'A Copper Rod', lede: 'This goes with Lebl’s [Example 4.6.1](' + T_ICE[0] + ') in Section 4.6, a wire with its ends in ice.' }
 ];
@@ -2776,57 +2777,7 @@ var PROBLEMS = [
         hints: ['Add `a_0`, `a_3 t^3` and `a_6 t^6`.'],
         sol: ['`y ≈ 3 − t^3 + F{t^6}{15}`'] }] },
 
-  /* 4. a variable coefficient, an ordinary point, and a series that stops */
-  { id: 'p4', sec: 'sec-var', task: 'Use a power series to solve the initial value problem.',
-    board: ['D2{y}{t} + t D{y}{t} − 4y = 0', 'y(0) = 1, y′(0) = 0'], v: 't', teach: T_HERM,
-    steps: [
-      { lead: 'Written as `y″ + p(t)y′ + q(t)y = 0`, is `t = 0` an ordinary point?', ok: 0, pick: [
-        ['Yes, because `p(t) = t` and `q(t) = −4` are polynomials', 'Polynomials have power series at 0, so the method gives two independent series solutions, and they converge for every `t`.'],
-        ['No, because `p(t) = t` is 0 at `t = 0`', 'A coefficient that is 0 at `t = 0` is fine. Trouble comes only when `p` or `q` has no power series there, as after dividing by something that is 0 at `t = 0`.'],
-        ['No, because the coefficients are not constants', 'The series method exists for equations like this one. An ordinary point needs only that `p` and `q` have power series at 0.'],
-        ['Yes, because `y(0)` and `y′(0)` are given', 'The initial values pick one solution. Whether `t = 0` is an ordinary point depends only on `p` and `q`.']] },
-      { lead: 'What is the coefficient of `t^n` in `t y′ = a_1 t + 2a_2 t^2 + 3a_3 t^3 + ⋯`?', ok: 0, pick: [
-        ['`n a_n`', 'Multiplying by `t` puts the power back: `t · n a_n t^(n−1) = n a_n t^n`.'],
-        ['`(n + 1)a_(n+1)`', 'That is the coefficient in `y′`. Multiplying by `t` raises each power by one, so the `t^n` term of `t y′` comes from `n a_n t^(n−1)`.'],
-        ['`(n − 1)a_(n−1)`', 'Read it off the written terms: the `t^2` term is `2a_2 t^2`, so the `t^n` term is `n a_n t^n`.'],
-        ['`a_(n−1)`', 'That is the rule for `t y`. Here `t` multiplies `y′`, whose terms already carry the factor `n`.']] },
-      { lead: 'Set the coefficient of `t^n` in the whole equation equal to 0, and solve for `a_(n+2)`. Type the factor that multiplies `a_n`.', ask: 'F{a_(n+2)}{a_n} =', ans: '(4-n)/((n+2)(n+1))', v: 'n',
-        stray: [['a', ratioMsg('a_(n+2)', 'a_n')]],
-        wrongs: [['(n-4)/((n+2)(n+1))', 'Check the signs: `(n + 2)(n + 1)a_(n+2) = 4a_n − n a_n`, so the top is `4 − n`.'],
-          ['4/((n+2)(n+1))', 'Include the `t y′` term, `n a_n`, which joins the `−4a_n`.'],
-          ['(4-n)/(n+2)', 'Divide by both factors in front of `a_(n+2)`, `(n + 2)(n + 1)`.'],
-          ['-(n+4)/((n+2)(n+1))', 'Moving the terms over changes both signs: `−4a_n` becomes `+4a_n` and `n a_n` becomes `−n a_n`.']],
-        hints: ['The `t^n` equation is `(n + 2)(n + 1)a_(n+2) + n a_n − 4a_n = 0`.'],
-        sol: ['`(n + 2)(n + 1)a_(n+2) = (4 − n)a_n`, so `F{a_(n+2)}{a_n} = F{4 − n}{(n + 2)(n + 1)}`'] },
-      { show: 'a_(n+2) = F{(4 − n)a_n}{(n + 2)(n + 1)}' },
-      { lead: 'Put in `n = 0`. Give exact fractions.', ask: 'a_2 =', num: true, ans: '2', closeMsg: EXACT_CLOSE,
-        wrongs: [['4', 'Divide by `(0 + 2)(0 + 1) = 2`.'],
-          ['-2', 'The top is `4 − 0 = 4`, which is positive.']],
-        hints: ['`a_2 = F{(4 − 0)a_0}{2 · 1}`, with `a_0 = 1`.'],
-        sol: ['`a_2 = F{(4 − 0)a_0}{2 · 1} = F{4}{2} = 2`'] },
-      { lead: 'Put in `n = 2`.', ask: 'a_4 =', num: true, ans: '1/3', closeMsg: EXACT_CLOSE,
-        wrongs: [['0', 'The factor is `4 − n` with `n = 2`, the `n` that produces `a_4`. That gives `4 − 2 = 2`, not 0.'],
-          ['2/3', 'Use `n = 2`: the top factor is `4 − 2 = 2`, not 4.'],
-          ['4', 'Divide by `(2 + 2)(2 + 1) = 12`.']],
-        hints: ['`a_4 = F{(4 − 2)a_2}{4 · 3}`, with `a_2 = 2`.'],
-        sol: ['`a_4 = F{(4 − 2)a_2}{4 · 3} = F{4}{12} = F{1}{3}`'] },
-      { lead: 'Put in `n = 4`.', ask: 'a_6 =', num: true, ans: '0', closeMsg: EXACT_CLOSE,
-        wrongs: [['2/45', 'The top factor is `4 − n` with `n = 4`, which is 0.'],
-          ['-1/45', '`a_6` comes from `n = 4`, the `n` with `n + 2 = 6`. Then the top factor is `4 − 4 = 0`.']],
-        hints: ['`a_6 = F{(4 − 4)a_4}{6 · 5}`.'],
-        sol: ['`a_6 = F{(4 − 4)a_4}{6 · 5} = 0`'] },
-      { lead: 'What happens to `a_8, a_10, …`, and to the odd coefficients?', ok: 0, pick: [
-        ['They are all 0, so the series stops and `y` is a polynomial', 'Each even coefficient after `a_6` comes from the one before it, which is 0. The odd ones come from `a_1 = y′(0) = 0`.'],
-        ['`a_8` is not 0, because the factor `4 − n` is 0 only at `n = 4`', '`a_8` comes from `a_6`, and `a_6 = 0`. A zero passes down the chain even after the factor `4 − n` is no longer 0.'],
-        ['The odd coefficients are not 0, because the rule never uses `a_1`', 'The odd coefficients form their own chain, which starts at `a_1 = y′(0) = 0`, so every one of them is 0.']] },
-      { lead: 'Write the solution.', ask: 'y =', ans: '1 + 2t^2 + t^4/3', stray: DOT_STRAYS,
-        wrongs: [['0', EQ0_MSG], [['1 + 2t^2 + 0.3333t^4', '1 + 2t^2 + 0.333t^4', '1 + 2t^2 + 0.33t^4'], 'Use the exact fraction `F{1}{3}` for `a_4`. A rounded decimal is not quite equal to it.'], ['1 + 2t^2', 'Include `a_4 t^4 = F{t^4}{3}`.'],
-          ['2t^2 + t^4/3', 'Include the constant term, `a_0 = 1`.']],
-        hints: ['Add `a_0`, `a_2 t^2` and `a_4 t^4`. Every other coefficient is 0.'],
-        why: 'Check by substituting: `y′ = 4t + F{4}{3} t^3` and `y″ = 4 + 4t^2`, and `y″ + t y′ − 4y` comes out to 0 for every `t`.',
-        sol: ['`y = 1 + 2t^2 + F{t^4}{3}`'] }] },
-
-  /* 5. checking a candidate: partial derivatives, the end conditions, superposition */
+  /* 4 (id p5). checking a candidate: partial derivatives, the end conditions, superposition */
   { id: 'p5', sec: 'sec-check', task: 'Check candidate solutions of the heat equation below, with both ends held at 0.',
     board: ['u_t = 8u_(xx), 0 < x < π', 'u(0, t) = 0, u(π, t) = 0'], v: 't', teach: T_SEPS,
     steps: [
@@ -2861,7 +2812,7 @@ var PROBLEMS = [
         ['No, because a sum of solutions of a PDE is not a solution', 'The heat equation is linear and homogeneous, so sums and constant multiples of solutions are solutions, as in Unit 5.'],
         ['Yes, but only at `t = 0`', 'Each term solves the equation at every time, so their combination does too.']] }] },
 
-  /* 6. separation, a boundary value problem, the eigenvalues and the modes on [0, 5] */
+  /* 5 (id p6). separation, a boundary value problem, the eigenvalues and the modes on [0, 5] */
   { id: 'p6', sec: 'sec-modes', task: 'A rod of length 5 obeys the heat equation below, with both ends held at 0. Separate variables and find its sine modes.',
     board: ['u_t = 3u_(xx), 0 < x < 5', 'u(0, t) = 0, u(5, t) = 0'], v: 'x', teach: T_EIG,
     steps: [
@@ -2916,6 +2867,58 @@ var PROBLEMS = [
       aria: 'The first three modes on a rod of length 5: sin(πx/5) is one hump from 0 to 5, sin(2πx/5) is a hump and a dip, crossing zero at x = 2.5, and sin(3πx/5) has three half-waves, crossing zero at 5/3 and 10/3. All three are 0 at both ends.' },
     after: 'The modes `sin(F{nπx}{5})` for `n = 1, 2, 3` fit one, two and three half-waves between the ends, and every one is 0 at `x = 0` and `x = 5`.' },
 
+  /* 6 (id ph). the unit's hook: two sine modes on [0, pi], which one fades first and why (replaced the series-that-stops problem, 2026-10-30) */
+  { id: 'ph', sec: 'sec-fine', task: 'Solve the heat problem, then compare its two modes.',
+    board: ['u_t = 2u_(xx), 0 < x < π', 'u(0, t) = 0, u(π, t) = 0', 'u(x, 0) = 3 sin 2x + sin 6x'], v: 't', teach: T_SUM,
+    steps: [
+      { lead: 'On a rod of length `π`, mode `n` is `sin nx`, and it decays at the rate `k n^2`. Find the rate of the `sin 2x` mode.', ask: '"rate" =', num: true, ans: '8',
+        wrongs: [['4', 'That is either `n^2` without the `k`, or `k · n` without squaring. The rate is `k n^2 = 2 · 2^2`.'],
+          ['16', 'That squares `kn = 4`. Square only `n`, then multiply by `k`: `2 · 2^2`.'],
+          ['2', 'That is `k` alone. Multiply it by `n^2 = 4`.']],
+        hints: ['Here `k = 2` and `n = 2`, so the rate is `2 · 2^2`.'], sol: ['`k n^2 = 2 · 2^2 = 8`'] },
+      { lead: 'Find the rate of the `sin 6x` mode.', ask: '"rate" =', num: true, ans: '72',
+        wrongs: [['36', 'That is `n^2` alone. Multiply by `k = 2`.'], ['12', 'That is `k · n`. Square `n` first: `2 · 6^2`.'],
+          ['144', 'That squares `kn = 12`. Square only `n`, then multiply by `k`.'], ['8', 'Each mode has its own rate. For `sin 6x`, `n = 6`.']],
+        hints: ['Here `n = 6`, so the rate is `2 · 6^2`.'], sol: ['`k n^2 = 2 · 6^2 = 72`'] },
+      { lead: 'Which function solves the problem?', ok: 0, pick: [
+        ['`u = 3e^(−8t) sin 2x + e^(−72t) sin 6x`', 'Each mode keeps its own coefficient and its own rate, and at `t = 0` both exponentials are 1.'],
+        ['`u = 3e^(−8t) sin 2x + e^(−8t) sin 6x`', 'The modes decay at different rates: 8 for `sin 2x` and 72 for `sin 6x`.'],
+        ['`u = e^(−8t) sin 2x + 3e^(−72t) sin 6x`', 'Each coefficient stays with its own sine: 3 with `sin 2x` and 1 with `sin 6x`.'],
+        ['`u = 3e^(8t) sin 2x + e^(72t) sin 6x`', 'These grow. Heat leaks out through the cold ends, so every mode decays.']] },
+      { lead: 'Which mode fades faster, and why?', ok: 0, pick: [
+        ['`sin 6x`, because a mode’s rate grows like `n^2`: finer wiggles curve more sharply, so `u_(xx)` is larger', 'Its rate, 72, is `(F{6}{2})^2 = 9` times the rate of `sin 2x`. Sharper curvature drives heat faster, so fine detail fades first.'],
+        ['`sin 6x`, because it starts smaller', 'The starting size is not the reason. Even if it started 100 times larger, it would still decay 9 times as fast, because its rate is `2 · 6^2 = 72`.'],
+        ['`sin 2x`, because it starts larger and has more to lose', 'The rate decides, not the starting size. `sin 2x` decays at the rate 8 and `sin 6x` at 72.'],
+        ['Neither: both share `k = 2`, so they fade together', '`k` is shared, but each mode’s rate is `k n^2`, and `n` differs: 8 against 72.']] },
+      { lead: 'At `t = 0` the `sin 6x` coefficient is `F{1}{3}` of the `sin 2x` coefficient. What fraction is it at `t = 0.05`? Keep four decimal places.', ask: 'F{e^(−72t)}{3e^(−8t)} ≈', num: true, ans: 'e^(-3.2)/3', tol: 0.00006,
+        closeMsg: 'Close. Keep four decimal places.',
+        wrongs: [[['0.014', '0.01'], 'That rounds too early. Keep four decimal places, and round only at the end.'],
+          ['0.3333', 'That is the fraction at `t = 0`. Put `t = 0.05` into both exponentials.'],
+          ['0.0408', 'Divide by the 3 as well: `F{e^(−3.2)}{3}`.'],
+          ['0.0091', 'The `sin 2x` term shrinks too, so divide by `e^(−8t)` as well. The fraction is `F{e^(−64t)}{3}`.'],
+          ['0.0061', 'Dividing subtracts exponents: `e^(−72t) ÷ e^(−8t) = e^(−64t)`, not `e^(−80t)`.'],
+          [['73.6', '73.5917'], 'That is the fraction upside down. Put the `sin 6x` coefficient on top.']],
+        hints: ['`F{e^(−72t)}{3e^(−8t)} = F{e^(−64t)}{3}`. Put in `t = 0.05`.'], sol: ['`F{e^(−64 · 0.05)}{3} = F{e^(−3.2)}{3} ≈ 0.0136`'],
+        why: 'By `t = 0.05` the fine mode has shrunk from a third of the smooth mode to about 1% of it.' },
+      { lead: 'Which description fits the temperature for large `t`?', ok: 0, pick: [
+        ['`u ≈ 3e^(−8t) sin 2x`: a hump and a dip, shrinking toward 0', 'The `sin 6x` mode is gone almost at once, and the smoother mode lasts longest.'],
+        ['`u ≈ e^(−72t) sin 6x`, the finest mode', 'The finest mode decays fastest, so it is the first to vanish, not the last.'],
+        ['`u` looks like a multiple of `sin x`, the lowest mode', 'Mode 1 is not in the starting temperature, so it never appears. The long run belongs to the lowest mode that is present, `sin 2x`.'],
+        ['`u` settles at the average starting temperature', 'That happens when the ends are insulated. Here the ends are held at 0, so heat leaks out and every temperature tends to 0.']] },
+      { lead: 'How long does the lasting term take to fall to half its size? Keep four decimal places.', ask: '"half-life" ≈', num: true, ans: 'ln(2)/8', tol: 0.00011,
+        closeMsg: 'Close. Keep four decimal places, with `ln 2 ≈ 0.6931`.',
+        wrongs: [['0.125', 'That is `F{1}{8}`. The half-life is `F{ln 2}{"rate"}`.'],
+          ['0.0096', 'That is the half-life of `sin 6x`, which fades first. Use the lasting term, with rate 8.'],
+          [['11.5416', '11.54', '11.5'], 'Divide `ln 2` by the rate, not the rate by `ln 2`.'],
+          ['0.3466', 'That divides by `k = 2`. Use the mode’s rate, `k n^2 = 8`.']],
+        hints: ['A term `e^(−8t)` halves when `8t = ln 2`.'], sol: ['`t = F{ln 2}{8} ≈ 0.0866`'] }],
+    graph: { x: [0, 3.15], y: [-3.5, 3.5], ticks: { x: 0.5, y: 1 }, labels: { x: 'x' },
+      fns: [0, 0.01, 0.05].map(function (tt, k) {
+        return { f: function (x) { return 3 * Math.exp(-8 * tt) * Math.sin(2 * x) + Math.exp(-72 * tt) * Math.sin(6 * x); },
+          n: 400, role: ['muted', 'outside', 'rate'][k], dash: k === 1 };
+      }),
+      aria: 'Three temperature profiles on 0 < x < pi. At t = 0 the profile is a hump and a dip with small fast wiggles on them, reaching about 2.8. At t = 0.01 the wiggles are smaller. At t = 0.05 the profile is a smooth hump above the axis from 0 to pi/2 and a smooth dip below it from pi/2 to pi, of height about 2.' },
+    after: 'The pale curve is `t = 0`, the dashed one `t = 0.01` and the low colored one `t = 0.05`. The wiggles of `sin 6x` are nearly gone by `t = 0.05`, while the smooth `sin 2x` hump and dip have lost only a third of their height.' },
   /* 7. a sum of sines on [0, 4] whose lowest mode is mode 2, with the larger start on the faster mode */
   { id: 'p7', sec: 'sec-sum', task: 'Solve the heat problem, and describe the temperature for large `t`.',
     board: ['u_t = 4u_(xx), 0 < x < 4', 'u(0, t) = 0, u(4, t) = 0', 'u(x, 0) = 8 sin(F{3πx}{2}) + 2 sin(F{πx}{2})'], v: 't', teach: T_SUM,
@@ -3227,7 +3230,7 @@ function sectionHTML(s, n) {
   var ps = PROBLEMS.filter(function (p) { return p.sec === s.id; });
   return sec(s.id, String(n + 1), s.title, s.lede) + col(ps.map(function (p) { return blk(p.id, function () { return problemHTML(p); }); }).join(''));
 }
-var NAV = { 'sec-first': 'First Order', 'sec-second': 'Second Order', 'sec-var': 'Variable', 'sec-check': 'Checking', 'sec-modes': 'Modes', 'sec-sum': 'Sum of Sines', 'sec-rod': 'Copper Rod' };
+var NAV = { 'sec-first': 'First Order', 'sec-second': 'Second Order', 'sec-var': 'Variable', 'sec-check': 'Checking', 'sec-modes': 'Modes', 'sec-fine': 'Fine Detail', 'sec-sum': 'Sum of Sines', 'sec-rod': 'Copper Rod' };
 function backHTML() {
   return sec('sec-back', '', 'Back to the Unit', '') + prose('', [
     'If one kind of problem gave you trouble, redo its example on the Unit 12 Worked Examples page, then try the practice problem under that example.',
@@ -3254,13 +3257,13 @@ var GUARD_CASES = [];
 var STRAY_CASES = [
   ['p1-5', '-3a_(n-2)/(n+1)', ratioMsg('a_(n+1)', 'a_(n−2)')], ['p1-5', '-3/(n+1)', null],
   ['p2-3', '-9a_n/((n+2)(n+1))', ratioMsg('a_(n+2)', 'a_n')], ['p2-3', 'a_(n+2)/a_n = -9/((n+2)(n+1))', null],
-  ['p3-2', '-2a_(n-1)/((n+2)(n+1))', ratioMsg('a_(n+2)', 'a_(n−1)')], ['p4-3', '(4-n)a_n/((n+2)(n+1))', ratioMsg('a_(n+2)', 'a_n')],
+  ['p3-2', '-2a_(n-1)/((n+2)(n+1))', ratioMsg('a_(n+2)', 'a_(n−1)')],
   ['p3-7', '3 - t^3 + t^6/15 + C', C_MSG],
   ['p5-1', '-32e^(-32t)sin(2x)', 'The `sin 2x` is already written before the box. Type only what multiplies it.'], ['p5-1', '-32exp(-32t)', null],
   ['p5-2', '-4e^(-32t)sin(2x)', 'The `e^(−32t)` is already written before the box. Type only what multiplies it.'], ['p5-2', '-4sin(2x)', null], ['p5-2', '-4 sqrt(1)sin(2x)', null],
   ['p6-7', 'sin(npi x/5)', 'Put in `n = 3`. This box takes only `x`.'], ['p6-7', 'sin(3pi x/5)', null], ['p6-6', 'n^2pi^2/25', null],
   ['p5-1', '-32u', 'Write out the factor itself, as a formula in `t`, not in terms of `u`.'], ['p6-7', 'Bsin(3pi x/5)', 'Take `B = 1`, and type only the sine.'], ['p6-7', 'sin(3pi x/5)', null],
-  ['p3-7', '3 - t^3 + t^6/15 + ...', DOTS_MSG], ['p4-9', '1 + 2t^2 + t^4/3 + ⋯', DOTS_MSG], ['p4-9', '1 + 2t^2 + 0.333t^4', null],
+  ['p3-7', '3 - t^3 + t^6/15 + ...', DOTS_MSG], ['p3-7', '3 - t^3 + t^6/15 + ⋯', DOTS_MSG], ['p3-7', '3 - t^3 + 0.0667t^6', null],
   ['p8-2', '0.0271/s', PER_S[1]], ['p8-2', '0.0271 1/s', PER_S[1]], ['p8-2', '0.0271 per second', null], ['p8-2', '1.1(pi/20)^2', null]];
 /* a guarded row, an answer the guard refuses, and a phrase its diagnosis contains: typed and checked in the live DOM (none here) */
 var LIVE_GUARD = null;
